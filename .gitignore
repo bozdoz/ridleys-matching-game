@@ -1,0 +1,4 @@
+node_modules/
+public/style.css*
+public/js/
+public/index.html

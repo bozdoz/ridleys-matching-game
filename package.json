@@ -1,0 +1,53 @@
+{
+  "name": "ridleys-matching-game",
+  "version": "1.0.0",
+  "description": "ridley and ben's first game",
+  "main": "index.js",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "start": "npm run watch",
+    "build": "npm-run-all -p build:*",
+    "build:css": "sass src/style.scss --style=compressed | postcss -u autoprefixer -o public/style.css --no-map",
+    "build:js": "NODE_ENV=production rollup -c",
+    "watch": "npm-run-all -p watch:*",
+    "watch:css": "sass src/style.scss public/style.css --watch",
+    "watch:js": "rollup -c -w",
+    "watch:proxy": "browser-sync start --config bs-config.cjs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bozdoz/ridleys-matching-game.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/bozdoz/ridleys-matching-game/issues"
+  },
+  "homepage": "https://github.com/bozdoz/ridleys-matching-game#readme",
+  "devDependencies": {
+    "@babel/preset-react": "^7.22.3",
+    "@rollup/plugin-babel": "^6.0.3",
+    "@rollup/plugin-commonjs": "^25.0.0",
+    "@rollup/plugin-node-resolve": "^15.0.2",
+    "@rollup/plugin-replace": "^5.0.2",
+    "@rollup/plugin-terser": "^0.4.3",
+    "autoprefixer": "^10.4.14",
+    "browser-sync": "^2.29.3",
+    "eslint": "^8.41.0",
+    "eslint-config-airbnb": "^19.0.4",
+    "eslint-plugin-import": "^2.27.5",
+    "eslint-plugin-jsx-a11y": "^6.7.1",
+    "eslint-plugin-react": "^7.32.2",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "npm-run-all": "^4.1.5",
+    "postcss-cli": "^10.1.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "rollup": "^3.23.0",
+    "sass": "^1.62.1"
+  },
+  "dependencies": {
+    "js-confetti": "^0.11.0"
+  }
+}
