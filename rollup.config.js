@@ -39,7 +39,7 @@ export default () => ({
       replacements: {
         title: "Ridley and Ben's Card Matcher",
         description: 'The first card matching game created by Ridley and Ben',
-        site: 'http://localhost',
+        site: 'https://ridleys-matching-game.vercel.app',
       },
     }),
   ],

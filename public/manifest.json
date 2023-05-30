@@ -1,0 +1,17 @@
+{
+  "short_name": "Card Matcher",
+  "name": "Ridley's Card Matcher",
+  "icons": [
+    {
+      "src": "favicon.ico",
+      "sizes": "32x32",
+      "type": "image/x-icon"
+    },
+    { "src": "/POOPY-192.png", "type": "image/png", "sizes": "192x192" },
+    { "src": "/POOPY-512.png", "type": "image/png", "sizes": "512x512" }
+  ],
+  "start_url": "./index.html",
+  "display": "standalone",
+  "theme_color": "#54a63c",
+  "background_color": "#54a63c"
+}
