@@ -1,4 +1,5 @@
 node_modules/
 public/style.css*
-public/js/
+public/main.js
 public/index.html
+public/sw.js

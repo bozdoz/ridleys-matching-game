@@ -4,7 +4,7 @@
 /* eslint-disable max-len */
 /* eslint-disable no-restricted-globals */
 // Use a CACHE_NAME for cache versioning
-const CACHE_NAME = 'v1:static';
+const CACHE_NAME = 'ridley-card-matcher@process.env.npm_package_version';
 
 const files = [
   './',

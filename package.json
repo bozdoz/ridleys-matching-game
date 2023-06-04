@@ -1,6 +1,6 @@
 {
   "name": "ridleys-matching-game",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "ridley and ben's first game",
   "main": "index.js",
   "type": "module",
@@ -12,7 +12,7 @@
     "build:js": "NODE_ENV=production rollup -c",
     "watch": "npm-run-all -p watch:*",
     "watch:css": "sass src/style.scss public/style.css --watch",
-    "watch:js": "rollup -c -w",
+    "watch:js": "NODE_ENV=development rollup -c -w",
     "watch:proxy": "browser-sync start --config bs-config.cjs"
   },
   "repository": {
@@ -34,6 +34,7 @@
     "@rollup/plugin-terser": "^0.4.3",
     "autoprefixer": "^10.4.14",
     "browser-sync": "^2.29.3",
+    "browser-sync-console": "^1.0.2",
     "eslint": "^8.41.0",
     "eslint-config-airbnb": "^19.0.4",
     "eslint-plugin-import": "^2.27.5",
