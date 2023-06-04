@@ -1,12 +1,37 @@
+/* eslint-disable no-plusplus */
+/* eslint-disable no-case-declarations */
+import { SIZE } from './config';
+
+const getCards = (size) => {
+  const numbers = Array.from({ length: (size * size) / 2 }).map((_, i) => i + 1);
+
+  return numbers.concat(numbers).sort(() => (Math.random() > 0.5 ? -1 : 1));
+};
+
 export const initialState = {
   open: {},
   openArr: [],
   solved: {},
   won: false,
+  size: SIZE,
+  cards: getCards(SIZE),
 };
 
 const reducer = (state, action) => {
   switch (action.type) {
+    case 'AUTO_WIN':
+      // flip everything
+      const max = state.size * state.size;
+      const solved = { ...state.solved };
+
+      for (let i = 0; i < max; i++) {
+        solved[i] = true;
+      }
+
+      return {
+        ...state,
+        solved,
+      };
     case 'CLOSE_LAST_TWO':
       // eslint-disable-next-line no-case-declarations
       const [first, second] = state.openArr;

@@ -4,17 +4,27 @@ import reducer, { initialState } from './reducer';
 import { SIZE } from './config';
 import Card from './Card.jsx';
 import useConfetti from './useConfetti';
+import usePalm from './usePalm';
 
 function App() {
   const [state, dispatch] = React.useReducer(reducer, initialState);
-  const all = React.useMemo(() => {
-    const numbers = Array.from({ length: (SIZE * SIZE) / 2 }).map((_, i) => i + 1);
 
-    return numbers.concat(numbers).sort(() => (Math.random() > 0.5 ? -1 : 1));
-  }, []);
-  const twoOpen = state.openArr.length > 1 && state.openArr.length % 2 === 0;
-  const won = Object.keys(state.solved).length === SIZE * SIZE;
+  const {
+    size, openArr, solved, cards,
+  } = state;
+
+  const twoOpen = openArr.length > 1 && openArr.length % 2 === 0;
+  const won = Object.keys(solved).length === size * size;
   const { start } = useConfetti();
+
+  const palm = usePalm();
+
+  React.useEffect(() => {
+    if (palm) {
+      // automatically win
+      dispatch({ type: 'AUTO_WIN' });
+    }
+  }, [palm]);
 
   React.useEffect(() => {
     if (twoOpen) {
@@ -39,7 +49,7 @@ function App() {
         '--cards': SIZE,
       }}
     >
-      {all.map((n, i) => (
+      {cards.map((n, i) => (
         <Card
           number={n}
           index={i}
@@ -50,8 +60,10 @@ function App() {
               dispatch({ type: 'OPEN', payload: { index: i, value: n } });
             }
           }}
+          // TODO: maybe solved is better with the number as index
           solved={!!state?.solved?.[i]}
           won={won}
+          size={size}
         />
       ))}
     </div>

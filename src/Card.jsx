@@ -8,21 +8,22 @@ function Card({
   solved = false,
   index = 0,
   won = false,
+  size = SIZE,
 }) {
   let display = number;
 
   if (won) {
     switch (true) {
-      case index % SIZE === 0:
+      case index % size === 0:
         display = '🦞';
         break;
-      case index % SIZE === 1:
+      case index % size === 1:
         display = '🦀';
         break;
-      case index % SIZE === 2:
+      case index % size === 2:
         display = '💩';
         break;
-      case index % SIZE === 3:
+      case index % size === 3:
         display = '🚽';
         break;
       default:
