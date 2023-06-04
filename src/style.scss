@@ -12,6 +12,33 @@ body {
   background: white;
 }
 
+#action-buttons {
+  padding-top: 2em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+button {
+  background: #2a87ff;
+  color: white;
+  border: none;
+  padding: 0.6em 0.8em;
+  font-size: 1.1em;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.2s;
+  border: 0.15em solid #1f73e1;
+
+  &:hover {
+    box-shadow: inset rgba(0, 0, 0, 0.2) 1000px 1000px;
+  }
+
+  &:active {
+    box-shadow: inset rgba(0, 0, 0, 0.4) 1000px 1000px;
+  }
+}
+
 #cards {
   --cards: 6;
   display: grid;
@@ -21,8 +48,9 @@ body {
 }
 
 .card {
-  width: 4em;
-  height: 4em;
+  width: calc(20em / var(--cards));
+  height: calc(20em / var(--cards));
+  
   cursor: pointer;
 
   &[data-open="true"],
@@ -36,6 +64,11 @@ body {
       color: white;
       border-color: purple;
     }
+  }
+
+  .card-back {
+    // hide number when turned
+    color: transparent;
   }
 
   &:active {
@@ -58,6 +91,8 @@ body {
       background: goldenrod;
     }
   }
+
+  transition: transform 0.6s;
 }
 
 .card-inner {
@@ -76,8 +111,10 @@ body {
   height: 100%;
   position: absolute;
   border: 0.1em solid green;
+  border-width: calc(0.4em / var(--cards));
   padding: 0.4em;
   font-size: 2.2em;
+  font-size: calc(10em / var(--cards));
   line-height: 1;
   border-radius: 0.2em;
   color: green;

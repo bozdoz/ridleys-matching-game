@@ -19,6 +19,15 @@ export const initialState = {
 
 const reducer = (state, action) => {
   switch (action.type) {
+    case 'RESTART':
+      return {
+        ...state,
+        open: {},
+        openArr: [],
+        solved: {},
+        won: false,
+        cards: getCards(state.size),
+      };
     case 'AUTO_WIN':
       // flip everything
       const max = state.size * state.size;
@@ -33,15 +42,15 @@ const reducer = (state, action) => {
         solved,
       };
     case 'CLOSE_LAST_TWO':
-      // eslint-disable-next-line no-case-declarations
       const [first, second] = state.openArr;
-      // eslint-disable-next-line no-case-declarations
       const open = {
         ...state.open,
       };
 
-      delete open[first.index];
-      delete open[second.index];
+      if (first && second) {
+        delete open[first.index];
+        delete open[second.index];
+      }
 
       return {
         ...state,

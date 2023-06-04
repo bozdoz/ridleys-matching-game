@@ -43,30 +43,43 @@ function App() {
   }, [won]);
 
   return (
-    <div
-      id="cards"
-      style={{
-        '--cards': SIZE,
-      }}
-    >
-      {cards.map((n, i) => (
-        <Card
-          number={n}
-          index={i}
-          key={i}
-          isOpen={!!state?.open?.[i]}
-          onClick={() => {
-            if (!state?.solved?.[i] && !state?.open?.[i]) {
-              dispatch({ type: 'OPEN', payload: { index: i, value: n } });
-            }
-          }}
+    <>
+      <div
+        id="cards"
+        style={{
+          '--cards': SIZE,
+        }}
+      >
+        {cards.map((n, i) => (
+          <Card
+            number={n}
+            index={i}
+            key={i}
+            isOpen={!!state?.open?.[i]}
+            onClick={() => {
+              if (!state?.solved?.[i] && !state?.open?.[i]) {
+                dispatch({ type: 'OPEN', payload: { index: i, value: n } });
+              }
+            }}
           // TODO: maybe solved is better with the number as index
-          solved={!!state?.solved?.[i]}
-          won={won}
-          size={size}
-        />
-      ))}
-    </div>
+            solved={!!state?.solved?.[i]}
+            won={won}
+            size={size}
+          />
+        ))}
+      </div>
+      <div id="action-buttons">
+        <button
+          type="button"
+          onClick={() => {
+            dispatch({ type: 'RESTART' });
+          }}
+        >
+          Restart
+
+        </button>
+      </div>
+    </>
   );
 }
 
