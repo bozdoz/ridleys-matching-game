@@ -1,26 +1,27 @@
+/* eslint-disable no-restricted-syntax */
 import React from 'react';
 
 const usePalm = () => {
-  const [palmDown, setPalmDown] = React.useState(0);
+  const [palmDown, setPalmDown] = React.useState(false);
   const [isPalm, setIsPalm] = React.useState(false);
+
   const handleTouch = React.useCallback((e) => {
-    const touches = e.touches.length;
+    const touches = Array.from(e.touches);
 
-    if (touches >= 3) {
-      setPalmDown(Date.now());
+    const avgRadius = touches.reduce((prev, cur) => prev + cur.radiusX, 0) / touches.length;
+
+    // if 3 or more touch points and the average touch point
+    // is greater than 50 pixels
+    if (touches.length >= 3 && avgRadius >= 50) {
+      setPalmDown(true);
     }
-  });
+  }, []);
 
-  const handleTouchEnd = React.useCallback((e) => {
-    const touches = e.changedTouches.length;
-
-    // need 3+ touches for at least half a second
-    if (touches >= 3 && Date.now() - palmDown >= 500) {
+  const handleTouchEnd = React.useCallback(() => {
+    if (palmDown) {
       setIsPalm(true);
-    } else {
-      setPalmDown(0);
     }
-  });
+  }, [palmDown]);
 
   React.useEffect(() => {
     document.addEventListener('touchstart', handleTouch);
@@ -30,7 +31,7 @@ const usePalm = () => {
       document.removeEventListener('touchstart', handleTouch);
       document.removeEventListener('touchend', handleTouchEnd);
     };
-  }, []);
+  }, [palmDown]);
 
   return isPalm;
 };
