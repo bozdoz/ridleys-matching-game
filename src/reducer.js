@@ -18,6 +18,8 @@ export const initialState = {
 };
 
 const reducer = (state, action) => {
+  const open = { ...state.open };
+
   switch (action.type) {
     case 'RESTART':
       return {
@@ -43,9 +45,6 @@ const reducer = (state, action) => {
       };
     case 'CLOSE_LAST_TWO':
       const [first, second] = state.openArr;
-      const open = {
-        ...state.open,
-      };
 
       if (first && second) {
         delete open[first.index];
@@ -58,31 +57,45 @@ const reducer = (state, action) => {
         openArr: state.openArr.slice(2),
       };
     case 'OPEN':
-      state.openArr.push(action.payload);
+      if (open[action.payload.index]) {
+        // already open
+        return state;
+      }
+
+      let openArr = [...state.openArr];
+
+      openArr.push(action.payload);
+
+      if (openArr.length === 3) {
+        // remove and unset previous open pair
+        delete open[openArr[0].index];
+        delete open[openArr[1].index];
+        openArr = openArr.slice(2);
+      }
+
+      open[action.payload.index] = true;
+
+      const newState = {
+        ...state,
+        open,
+        openArr,
+      };
+
       // check if last two match:
-      if (state.openArr.length % 2 === 0) {
-        const lastCard = state.openArr[state.openArr.length - 2];
+      if (openArr.length === 2) {
+        const lastCard = openArr[0];
         if (lastCard.value === action.payload.value) {
           // match!
           // eslint-disable-next-line no-param-reassign
-          state = {
-            ...state,
-            solved: {
-              ...state.solved,
-              [action.payload.index]: true,
-              [lastCard.index]: true,
-            },
+          newState.solved = {
+            ...state.solved,
+            [action.payload.index]: true,
+            [lastCard.index]: true,
           };
         }
       }
 
-      return {
-        ...state,
-        open: {
-          ...state.open,
-          [action.payload.index]: true,
-        },
-      };
+      return newState;
     default:
       return state;
   }

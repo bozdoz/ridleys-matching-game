@@ -15,7 +15,7 @@ function App() {
     size, openArr, solved, cards,
   } = state;
 
-  const twoOpen = openArr.length > 1 && openArr.length % 2 === 0;
+  const twoOpen = openArr.length === 2;
   const won = Object.keys(solved).length === size * size;
   const { start } = useConfetti();
 
@@ -44,12 +44,18 @@ function App() {
   }, [palm]);
 
   React.useEffect(() => {
+    let t;
+
     if (twoOpen) {
-      // flip, but set a timeout to unflip?
-      setTimeout(() => {
+      // set a timeout to unflip?
+      t = setTimeout(() => {
         dispatch({ type: 'CLOSE_LAST_TWO' });
       }, 1000);
     }
+
+    return () => {
+      clearTimeout(t);
+    };
   }, [twoOpen]);
 
   // eslint-disable-next-line consistent-return
