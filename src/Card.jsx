@@ -2,7 +2,6 @@ import React from 'react';
 import { SIZE } from './config';
 
 function Card({
-  onClick,
   number = 0,
   isOpen = false,
   solved = false,
@@ -36,10 +35,10 @@ function Card({
       className="card"
       role="button"
       tabIndex={0}
-      onClick={onClick}
-      onKeyDown={onClick}
       data-open={isOpen}
       data-solved={solved}
+      data-card={number}
+      data-index={index}
     >
       <div className="card-inner">
         <div className="card-front" />

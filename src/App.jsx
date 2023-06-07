@@ -1,3 +1,5 @@
+/* eslint-disable jsx-a11y/no-static-element-interactions */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable react/no-array-index-key */
 import React from 'react';
 import reducer, { initialState } from './reducer';
@@ -16,6 +18,21 @@ function App() {
   const twoOpen = openArr.length > 1 && openArr.length % 2 === 0;
   const won = Object.keys(solved).length === size * size;
   const { start } = useConfetti();
+
+  const handleClick = React.useCallback((e) => {
+    const card = e.target.closest('.card');
+
+    if (!card) {
+      return;
+    }
+
+    const number = card.getAttribute('data-card');
+    const index = card.getAttribute('data-index');
+
+    if (!state?.solved?.[index] && !state?.open?.[index]) {
+      dispatch({ type: 'OPEN', payload: { index, value: number } });
+    }
+  }, []);
 
   const palm = usePalm();
 
@@ -49,6 +66,7 @@ function App() {
         style={{
           '--cards': SIZE,
         }}
+        onClick={handleClick}
       >
         {cards.map((n, i) => (
           <Card
@@ -56,12 +74,7 @@ function App() {
             index={i}
             key={i}
             isOpen={!!state?.open?.[i]}
-            onClick={() => {
-              if (!state?.solved?.[i] && !state?.open?.[i]) {
-                dispatch({ type: 'OPEN', payload: { index: i, value: n } });
-              }
-            }}
-          // TODO: maybe solved is better with the number as index
+            // TODO: maybe solved is better with the number as index
             solved={!!state?.solved?.[i]}
             won={won}
             size={size}
