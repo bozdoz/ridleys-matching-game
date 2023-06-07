@@ -1,6 +1,6 @@
 {
   "name": "ridleys-matching-game",
-  "version": "1.3.2",
+  "version": "1.3.3",
   "description": "ridley and ben's first game",
   "main": "index.js",
   "type": "module",

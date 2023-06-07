@@ -88,7 +88,7 @@ function App() {
             dispatch({ type: 'RESTART' });
           }}
         >
-          Restart
+          RESTART
 
         </button>
       </div>
